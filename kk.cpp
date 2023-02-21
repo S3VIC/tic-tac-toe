@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
-
+#include<iostream>
 
 
 //Deklaracje funkcji---------------------------------------- 
@@ -12,7 +12,6 @@ bool sprawdzPlansze(char tab[17][17]);                      //Sprawdzanie czy pl
 bool sprawdzRuch(int x, int y, char tab[17][17]);           //Sprawdzanie możliwości wykonania ruchu
 void stworzPlansze(char tab[17][17]);                       //Tworzenie planszy
 //----------------------------------------------------------
-
 
 
 int main(void)
@@ -46,11 +45,9 @@ int main(void)
 
 
 
-void wyswietlPlansze(char tab[17][17])
-{
+void wyswietlPlansze(char tab[17][17]){
   int i = 0, k = 0;
-  for(i=0; i<17; i++)
-    {
+  for(i=0; i<17; i++){
       for(k=0;k<17;k++)
 	{
 	  printf("%c  ",tab[i][k]);
@@ -59,13 +56,15 @@ void wyswietlPlansze(char tab[17][17])
     } 
 }
 
-void wyczyscTerminal()
-{
-  system("clear");
+void wyczyscTerminal(){
+#ifdef _WIN32
+        system("cls");
+#else
+        system("clear");
+#endif
 }
 
-bool  sprawdzPlansze(char tab[17][17])
-{
+bool  sprawdzPlansze(char tab[17][17]){
   bool kontynuuj = false;
   int i=0, k=0;
   for(i=0;i<=7;i++)
@@ -78,8 +77,7 @@ bool  sprawdzPlansze(char tab[17][17])
   return kontynuuj;
 }
 
-void wykonajRuch(int x, int y, char tab[17][17])
-{
+void wykonajRuch(int x, int y, char tab[17][17]){
       if(tab[2*x-1][2*y-1] == (char)88) tab[2*x-1][2*y-1] = (char)79;              //sprawdzanie pola centralnego
       if(x-1>=1) {if(tab[2*x-3][2*y-1] == (char)88) tab[2*x-3][2*y-1] = (char)79;} //sprawdzanie pola na lewo
       if(y-1>=1) {if(tab[2*x-1][2*y-3] == (char)88) tab[2*x-1][2*y-3] = (char)79;} //sprawdzanie pola od góry
@@ -87,22 +85,19 @@ void wykonajRuch(int x, int y, char tab[17][17])
       if(x+1<=8) {if(tab[2*x+1][2*y-1] == (char)88) tab[2*x+1][2*y-1] = (char)79;} //sprawdzanie pola na prawo
 }
 
-bool sprawdzRuch(int x, int y, char tab[17][17])
-{
+bool sprawdzRuch(int x, int y, char tab[17][17]){
    if((x<=8 && x>=1)&&(y<=8 && y>=1)&&tab[2*x-1][2*y-1] ==(char)88) return true;
    else return false;
 }
 
-void stworzPlansze(char tab[17][17])
-{
+void stworzPlansze(char tab[17][17]){
  int i = 0, k = 0;                                         //iteratory
-  for(i=0 ; i < 17; i++)                                    //Rysowanie planszy
+  for(i=0 ; i < 17; i++)                                  //Rysowanie planszy
     {
       for(k=0; k<17; k++)
 	{
 	  if(k%2 == 1 && i%2 == 1) tab[i][k] = (char)88;
 	    else tab[i][k] = (char)92;
-							
 	}
     }   
 }
