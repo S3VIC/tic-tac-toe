@@ -17,6 +17,7 @@ void stworzPlansze(char tab[17][17]);                       //Tworzenie planszy
 int main(void)
 {
   game::Board board = game::Board(8,'/');
+  std::cout << board;
 //  int liczbaRuchow = 0, wiersz = 0, kolumna = 0;            //Definicje zmiennych, odpowiednio linczik ruchów, indeksy wiersza i kolumny
 //  char plansza[17][17];                                     //Definicja planszy
   

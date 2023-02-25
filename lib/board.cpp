@@ -18,7 +18,6 @@ game::Board::Board(size_t _boardSize, const char _separator)
 			else 
 				column.push_back((char)92);
 		}
-		std::cout << "Added column" << std::endl;
 		board.push_back(column);
 	}
 }
