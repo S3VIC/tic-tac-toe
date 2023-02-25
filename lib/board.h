@@ -8,6 +8,7 @@ namespace game {
 		Board();
 		Board(size_t _boardSize, const char _separator);
 		virtual ~Board();
+		void move(const int& x, const int& y);
 		friend std::ostream& operator<<(std::ostream& os, const Board& board);
 	private:
 		std::vector<std::vector<char>> board;
@@ -16,4 +17,5 @@ namespace game {
 	};
 
 	std::ostream& operator<<(std::ostream& os, const Board& board);
+	void clearTerminal();
 }
