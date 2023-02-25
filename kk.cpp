@@ -16,31 +16,31 @@ void stworzPlansze(char tab[17][17]);                       //Tworzenie planszy
 
 int main(void)
 {
-sayHello();
-  int liczbaRuchow = 0, wiersz = 0, kolumna = 0;            //Definicje zmiennych, odpowiednio linczik ruchów, indeksy wiersza i kolumny
-  char plansza[17][17];                                     //Definicja planszy
+  game::Board board = game::Board(8,'/');
+//  int liczbaRuchow = 0, wiersz = 0, kolumna = 0;            //Definicje zmiennych, odpowiednio linczik ruchów, indeksy wiersza i kolumny
+//  char plansza[17][17];                                     //Definicja planszy
   
-  stworzPlansze(plansza);                                   //Tworzenie planszy
-  wyswietlPlansze(plansza);                                 
+//  stworzPlansze(plansza);                                   //Tworzenie planszy
+//  wyswietlPlansze(plansza);                                 
 
-  while(sprawdzPlansze(plansza))
-{   
-  printf("Wykonane ruchy: %d", liczbaRuchow);               //Wyswietlenie wykonanych liczby ruchow
-  printf("\nWiersz: ");                                     
-  scanf("%d", &wiersz);                                     //Wczytywanie indeksu wiersza  
-  printf("Kolumna: ");
-  scanf("%d", &kolumna);                                    //Wczytywanie indeksu kolumny
-  printf("\n");
-  if(sprawdzRuch(wiersz, kolumna, plansza))                 //Sprawdzenie czy ruch możliwy
-  {
-    wyczyscTerminal();
-    wykonajRuch(wiersz,kolumna,plansza);
-    wyswietlPlansze(plansza);
-    liczbaRuchow += 1;
-  }
-  else printf("Ruch niemożliwy, spróbuj ponownie!\n");
-}
-  printf("Koniec gry! \n Wykonane ruchu : %d", liczbaRuchow);     //końcowy komunikat
+  //while(sprawdzPlansze(plansza))
+//{   
+//  printf("Wykonane ruchy: %d", liczbaRuchow);               //Wyswietlenie wykonanych liczby ruchow
+//  printf("\nWiersz: ");                                     
+//  scanf("%d", &wiersz);                                     //Wczytywanie indeksu wiersza  
+//  printf("Kolumna: ");
+//  scanf("%d", &kolumna);                                    //Wczytywanie indeksu kolumny
+//  printf("\n");
+//  if(sprawdzRuch(wiersz, kolumna, plansza))                 //Sprawdzenie czy ruch możliwy
+//  {
+//    wyczyscTerminal();
+//    wykonajRuch(wiersz,kolumna,plansza);
+//    wyswietlPlansze(plansza);
+//    liczbaRuchow += 1;
+//  }
+//  else printf("Ruch niemożliwy, spróbuj ponownie!\n");
+//}
+//  printf("Koniec gry! \n Wykonane ruchu : %d", liczbaRuchow);     //końcowy komunikat
   return 0;
 }
 
