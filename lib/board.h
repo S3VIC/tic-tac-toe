@@ -6,16 +6,20 @@ namespace game {
 	class Board {
 	public:
 		Board();
-		Board(size_t _boardSize, const char _separator);
+		Board(unsigned int _boardSize, const char _separator);
 		virtual ~Board();
 		void move(const int& x, const int& y);
 		void checkMove(const int& x, const int& y);
 		bool checkField(const int& x, const int& y);
+		void changeSign(const int& x, const int& y);
+		bool ifRunning();
 		friend std::ostream& operator<<(std::ostream& os, const Board& board);
 	private:
-		std::vector<std::vector<char>> board;
-		size_t boardSize;
-		char separator;
+		std::vector<std::vector<char>> board = {};
+		unsigned int boardSize = 0;
+		unsigned int  movementsNum = 0;
+		bool isRunning = false;
+		char separator = ' ';
 	};
 
 	std::ostream& operator<<(std::ostream& os, const Board& board);

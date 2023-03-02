@@ -1,13 +1,14 @@
 #include "board.h"
-#include<iostream>
 
+#define BOARD_MIN_SIZE 1
 namespace game {
 	Board::Board()
 		: board(std::vector<std::vector<char>> {}), boardSize(0), separator('/') {
 	}
 
-	Board::Board(size_t _boardSize, const char _separator)
-		: board(std::vector<std::vector<char>> {}), boardSize(_boardSize), separator(_separator)
+	Board::Board(unsigned int _boardSize, const char _separator)
+		: board(std::vector<std::vector<char>> {}), boardSize(_boardSize), movementsNum(0),
+		separator(_separator)
 	{
 		for (int i = 0; i < 2 * boardSize + 1; i++) {
 			std::vector<char> column = {};
@@ -21,6 +22,8 @@ namespace game {
 			}
 			board.push_back(column);
 		}
+		movementsNum = _boardSize * _boardSize;
+		isRunning = true;
 	}
 
 	void Board::move(const int& x, const int& y) {
@@ -38,31 +41,32 @@ namespace game {
 			if (x < boardSize && y < boardSize) {
 
 				//checking central point
-				if (this->board[xCentralPos][yCentralPos] == (char)88)
-					this->board[2 * x - 1][2 * y - 1] = (char)79;
+				
+				if (checkField(xCentralPos, yCentralPos))
+					changeSign(xCentralPos, yCentralPos);
 
 				//checkign field to the left
-				if (x - 1 >= 1) {
-					if (this->board[2 * x - 3][2 * y - 1] == (char)88)
-						this->board[2 * x - 3][2 * y - 1] = (char)79;
+				if (x - 1 >= BOARD_MIN_SIZE) {
+					if (checkField(xleftPos, yCentralPos))
+						changeSign(xleftPos, yCentralPos);
 				}
 
 				//checking one field up
-				if (y - 1 >= 1) {
-					if (this->board[2 * x - 1][2 * y - 3] == (char)88)
-						this->board[2 * x - 1][2 * y - 3] = (char)79;
+				if (y - 1 >= BOARD_MIN_SIZE) {
+					if (checkField(xCentralPos, yUpPos))
+						changeSign(xCentralPos, yUpPos);
 				}
 
 				//checking one field down
-				if (y + 1 <= 8) {
-					if (this->board[2 * x - 1][2 * y + 1] == (char)88)
-						this->board[2 * x - 1][2 * y + 1] = (char)79;
+				if (y + 1 <= boardSize) {
+					if (checkField(xCentralPos, yDownPos))
+						changeSign(xCentralPos, yDownPos);
 				}
 
 				//checking field to the right
-				if (x + 1 <= 8) {
-					if (this->board[2 * x + 1][2 * y - 1] == (char)88)
-						this->board[2 * x + 1][2 * y - 1] = (char)79;
+				if (x + 1 <= boardSize) {
+					if (checkField(xrightPos, yCentralPos))
+						changeSign(xrightPos, yCentralPos);
 				}
 			}
 		}
@@ -82,6 +86,13 @@ namespace game {
 		return changeFieldSign;
 	}
 
+	void Board::changeSign(const int& x, const int& y) {
+		this->board[x][y] = char(79);
+		if (movementsNum > 0)
+			movementsNum--;
+		else
+			isRunning = false;
+	}
 	void game::Board::checkMove(const int& x, const int& y) {
 		bool validMove = false;
 		if (this->board[2 * x - 1][2 * y - 1] == (char)88)
@@ -101,6 +112,10 @@ namespace game {
 		#else
 			system("clear");
 		#endif
+	}
+
+	bool Board::ifRunning() {
+		return isRunning;
 	}
 
 	Board::~Board() {}
