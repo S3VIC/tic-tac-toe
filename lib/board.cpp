@@ -10,15 +10,11 @@ namespace game {
 		: board(std::vector<std::vector<char>> {}), boardSize(_boardSize), movementsNum(0),
 		separator(_separator)
 	{
-		for (int i = 0; i < 2 * boardSize + 1; i++) {
+		for (int i = 0; i < boardSize; i++) {
 			std::vector<char> column = {};
 
-			for (int k = 0; k < 2 * boardSize + 1; k++) {
-
-				if (i % 2 == 1 && k % 2 == 1)
+			for (int k = 0; k < boardSize; k++) {
 					column.push_back((char)88);
-				else
-					column.push_back((char)92);
 			}
 			board.push_back(column);
 		}
@@ -27,17 +23,23 @@ namespace game {
 	}
 
 	void Board::move(const int& x, const int& y) {
+		
+		const int xCentralPos = x - 1;
+		const int yCentralPos = y - 1;
+		
+		clearTerminal();
+
 		if (boardSize > 1)
 		{
 			// x field coords
-			const int xleftPos = 2 * x - 3;
-			const int xrightPos = 2 * x + 1;
-			const int xCentralPos = 2 * x - 1;
+			const int xleftPos = x - 2;
+			const int xrightPos = x;
+			
 
 			// y field coords
-			const int yDownPos = 2 * y + 3;
-			const int yUpPos = 2 * y + -3;
-			const int yCentralPos = 2 * y - 1;
+			const int yDownPos = y;
+			const int yUpPos = y - 2;
+			
 			if (x < boardSize && y < boardSize) {
 
 				//checking central point
@@ -72,8 +74,8 @@ namespace game {
 		}
 		else {
 			//checking central point
-			if (this->checkField(2 * x - 1, 2 * y - 1))
-				this->board[2 * x - 1][2 * y - 1] = (char)79;
+			if (this->checkField(xCentralPos, yCentralPos))
+				changeSign(xCentralPos, yCentralPos);
 		}
 	}
 
@@ -93,15 +95,13 @@ namespace game {
 		else
 			isRunning = false;
 	}
-	void game::Board::checkMove(const int& x, const int& y) {
+
+	bool game::Board::checkMove(const int& x, const int& y) {
 		bool validMove = false;
-		if (this->board[2 * x - 1][2 * y - 1] == (char)88)
+		if (this->board[x - 1][y - 1] == (char)88)
 			validMove = true;
 
-		if (validMove)
-			this->move(x, y);
-		else
-			std::cout << "Move not valid. Try again" << std::endl;
+		return validMove;
 	}
 
 
@@ -123,11 +123,19 @@ namespace game {
 
 std::ostream& game::operator<<(std::ostream& os, const Board& board) {
 
-	for (int i = 0; i < 2 * board.boardSize + 1; i++) {
-		for (int k = 0; k < 2 * board.boardSize + 1; k++) {
-			os << ' ' << board.board[i][k];
-		}
-		os << '\n';
+	for (int i = 0; i < 2 * board.boardSize + 1; i++)
+		os << (char)92 << ' ';
+	
+	os << '\n';
+
+	for (int i = 0; i < board.boardSize; i++) {
+		for (int k = 0; k < board.boardSize; k++) 
+			os << (char)92 << ' ' << board.board[i][k] << ' ';
+		os << (char)92 << '\n';
 	}
+
+	for (int i = 0; i < 2 * board.boardSize + 1; i++)
+		os << (char)92 << ' ';
+	os << '\n';
 	return os;
 }
