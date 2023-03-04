@@ -13,6 +13,8 @@ namespace game {
 		bool checkField(const int& x, const int& y);
 		void changeSign(const int& x, const int& y);
 		bool ifRunning();
+		int getMovementsLeft();
+		void checkMovementsLeft();
 		friend std::ostream& operator<<(std::ostream& os, const Board& board);
 	private:
 		std::vector<std::vector<char>> board = {};

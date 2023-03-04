@@ -1,4 +1,5 @@
 #include "board.h"
+#include "board.h"
 
 #define BOARD_MIN_SIZE 1
 namespace game {
@@ -40,7 +41,7 @@ namespace game {
 			const int yDownPos = y;
 			const int yUpPos = y - 2;
 			
-			if (x < boardSize && y < boardSize) {
+			if (x <= boardSize && y <= boardSize) {
 
 				//checking central point
 				
@@ -90,10 +91,7 @@ namespace game {
 
 	void Board::changeSign(const int& x, const int& y) {
 		this->board[x][y] = char(79);
-		if (movementsNum > 0)
-			movementsNum--;
-		else
-			isRunning = false;
+		this->movementsNum--;
 	}
 
 	bool game::Board::checkMove(const int& x, const int& y) {
@@ -103,8 +101,6 @@ namespace game {
 
 		return validMove;
 	}
-
-
 
 	void game::clearTerminal() {
 		#ifdef _WIN32
@@ -118,24 +114,34 @@ namespace game {
 		return isRunning;
 	}
 
+	int Board::getMovementsLeft()
+	{
+		return movementsNum;
+	}
+
+	void Board::checkMovementsLeft() {
+		if (!movementsNum)
+			isRunning = false;
+	}
+
 	Board::~Board() {}
 }
 
 std::ostream& game::operator<<(std::ostream& os, const Board& board) {
 
 	for (int i = 0; i < 2 * board.boardSize + 1; i++)
-		os << (char)92 << ' ';
+		os << board.separator << ' ';
 	
 	os << '\n';
 
 	for (int i = 0; i < board.boardSize; i++) {
 		for (int k = 0; k < board.boardSize; k++) 
-			os << (char)92 << ' ' << board.board[i][k] << ' ';
-		os << (char)92 << '\n';
+			os << board.separator << ' ' << board.board[i][k] << ' ';
+		os << board.separator << '\n';
 	}
 
 	for (int i = 0; i < 2 * board.boardSize + 1; i++)
-		os << (char)92 << ' ';
+		os << board.separator << ' ';
 	os << '\n';
 	return os;
 }
