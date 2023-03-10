@@ -6,7 +6,9 @@ project(Tic-tac-toe VERSION 0.1)
 #specifying c++ standard
 set(CMAKE_CXX_STANDARD 14
         CMAKE_CXX_STANDARD_REQUIRED True)
+
 add_subdirectory(lib)
+
 list(APPEND EXTRA_LIBS
         board
 )

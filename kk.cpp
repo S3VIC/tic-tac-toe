@@ -4,9 +4,15 @@
 
 int main(void)
 {
-  game::Board board = game::Board(2,'/');
-  int x = 0, y = 0;
-  //std::cout << board;
+  std::cout << "Welcome to TTT game!\n";
+  std::cout << "Choose board size:" << '\n';
+  
+  uint32_t boardSize = 0;
+  uint32_t x = 0, y = 0;
+  
+  std::cin >> boardSize;
+  game::Board board = game::Board(boardSize,'/');
+
   while (board.ifRunning()) {
     
     std::cout << board;
