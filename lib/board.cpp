@@ -102,7 +102,7 @@ namespace game {
 		return validMove;
 	}
 
-	void game::clearTerminal() {
+	void clearTerminal() {
 		#ifdef _WIN32
 			system("cls");
 		#else
