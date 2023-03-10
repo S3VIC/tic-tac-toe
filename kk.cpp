@@ -8,10 +8,13 @@ int main(void)
   std::cout << "Choose board size:" << '\n';
   
   uint32_t boardSize = 0;
-  uint32_t x = 0, y = 0;
-  
-  std::cin >> boardSize;
-  game::Board board = game::Board(boardSize,'/');
+  uint32_t x = 0, y = 0, boardWidth = 0, boardHeight = 0;
+
+  std::cout << "Board Width: ";
+  std::cin >> boardWidth;
+  std::cout << "Board Height: ";
+  std::cin >> boardHeight;
+  game::Board board = game::Board(boardWidth, boardHeight,'/');
 
   while (board.ifRunning()) {
     
