@@ -28,4 +28,10 @@ namespace game {
 
 	std::ostream& operator<<(std::ostream& os, const Board& board);
 	void clearTerminal();
+	void displayWelcomeMessage(void);
+	
+	void displayStatusAndDefineMove(uint32_t* x, uint32_t* y, Board& board);
+	uint32_t getBoardWidth(void);
+	uint32_t getBoardHeight(void);
+
 }

@@ -145,3 +145,33 @@ std::ostream& game::operator<<(std::ostream& os, const Board& board) {
 	os << '\n';
 	return os;
 }
+
+void game::displayWelcomeMessage(void) {
+	std::cout << "Welcome to TTT game!\n";
+	std::cout << "Choose board size:" << '\n';
+}
+
+uint32_t game::getBoardWidth(void) {
+	uint32_t boardWidth = 0;
+	std::cout << "Board Width: ";
+	std::cin >> boardWidth;
+	
+	return boardWidth;
+}
+
+uint32_t game::getBoardHeight(void) {
+	uint32_t boardHeight = 0;
+	std::cout << "Board Height: ";
+	std::cin >> boardHeight;
+
+	return boardHeight;
+}
+
+void game::displayStatusAndDefineMove(uint32_t* x, uint32_t* y, Board& board) {
+	std::cout << board;
+	std::cout << "Movements left: " << board.getMovementsLeft() << '\n';
+	std::cout << "Row: ";
+	std::cin >> *x;
+	std::cout << "Column: ";
+	std::cin >> *y;
+}

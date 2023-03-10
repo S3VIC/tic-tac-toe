@@ -4,26 +4,19 @@
 
 int main(void)
 {
-  std::cout << "Welcome to TTT game!\n";
-  std::cout << "Choose board size:" << '\n';
+  game::displayWelcomeMessage();
   
   uint32_t boardSize = 0;
   uint32_t x = 0, y = 0, boardWidth = 0, boardHeight = 0;
 
-  std::cout << "Board Width: ";
-  std::cin >> boardWidth;
-  std::cout << "Board Height: ";
-  std::cin >> boardHeight;
+  boardWidth = game::getBoardWidth();
+  boardHeight = game::getBoardHeight();
+
   game::Board board = game::Board(boardWidth, boardHeight,'/');
 
   while (board.ifRunning()) {
     
-    std::cout << board;
-    std::cout << "Movements left: " << board.getMovementsLeft() << '\n';
-    std::cout << "Row: "; 
-    std::cin >> x;
-    std::cout << "Column: ";
-    std::cin >> y;
+    game::displayStatusAndDefineMove(&x, &y, board);
 
     if (board.checkMove(x, y))
       board.move(x, y);
